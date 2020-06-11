@@ -22,4 +22,5 @@ def dictionary():
             else:
                 print('\nThat word does not exist in the dictionary')
 
-dictionary()
+if __name__ == "__main__":
+    dictionary()
