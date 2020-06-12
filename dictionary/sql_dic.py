@@ -25,12 +25,12 @@ def query_pull(word, mode):
 
 def dictionary():
     while True:
-        word = input('\nPlease type a word to define.\nType \close to end program: ').lower()
-        while len(word) <= 0 or word.isnumeric():
+        word = input('\nPlease type a word to define.\nType close program to exit: ').lower()
+        while not word.isalpha():
             word = input('\nPlease type a word to define, no numeric values are accepted: ').lower()
         number = 1
         query_return = query_pull(word, 'exact_match')
-        if word == '\close':
+        if word == 'close program':
             print('Thank you for using this software')
             break
 
