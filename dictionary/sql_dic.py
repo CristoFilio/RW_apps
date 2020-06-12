@@ -35,10 +35,8 @@ def dictionary():
             break
 
         if len(query_return) > 0:
-
-            if word in query_return[0][1].lower():
+          
                 print('\n{}:'.format(word.capitalize()))
-
                 for definition in query_return:
                     print('{}.- {}'.format(number, definition[0]))
                     number += 1
