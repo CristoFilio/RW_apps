@@ -2,20 +2,22 @@ import mysql.connector
 from difflib import get_close_matches
 
 con = mysql.connector.connect(
-    user="ardit700_student",
-    password='ardit700_student',
-    host="108.167.140.122",
-    database="ardit700_pm1database"
+        user='CristoF',
+        password='MiData320##0',
+        host='CristoF.mysql.pythonanywhere-services.com',
+        database='CristoF$Dictionary'
 )
+
 cursor = con.cursor()
 
 def query_pull(word, mode):
     if mode == 'exact_match':
-        query = cursor.execute("SELECT * FROM Dictionary WHERE Expression = '{}'".format(word))
+        query = cursor.execute("SELECT * FROM words WHERE word = '{}'".format(word))
     elif mode == 'similar':
-        query = (cursor.execute("SELECT Expression FROM Dictionary WHERE "
-                                "Expression REGEXP '[[:<:]]{}' "
-                                "OR Expression REGEXP '{}[[:>:]]' "
+        #use regular expresions to find the first and last 3 letters of the word in the query
+        query = (cursor.execute("SELECT word FROM words WHERE "
+                                "word REGEXP '[[:<:]]{}' "
+                                "OR word REGEXP '{}[[:>:]]' "
                                 .format(word[:3], word[-4:])))
     query_return = cursor.fetchall()
     return query_return
@@ -23,18 +25,22 @@ def query_pull(word, mode):
 
 def dictionary():
     while True:
-        word = input('\nPlease type a word to define: ').lower()
+        word = input('\nPlease type a word to define.\nType \close to end program: ').lower()
         while len(word) <= 0 or word.isnumeric():
             word = input('\nPlease type a word to define, no numeric values are accepted: ').lower()
         number = 1
         query_return = query_pull(word, 'exact_match')
+        if word == '\close':
+            print('Thank you for using this software')
+            break
 
         if len(query_return) > 0:
 
-            if word in query_return[0][0].lower():
+            if word in query_return[0][1].lower():
                 print('\n{}:'.format(word.capitalize()))
+
                 for definition in query_return:
-                    print('{}.- {}'.format(number, definition[1]))
+                    print('{}.- {}'.format(number, definition[0]))
                     number += 1
         else:
 
