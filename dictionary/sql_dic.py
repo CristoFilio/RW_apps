@@ -2,10 +2,10 @@ import mysql.connector
 from difflib import get_close_matches
 
 con = mysql.connector.connect(
-        user='CristoF',
-        password='MiData320##0',
-        host='CristoF.mysql.pythonanywhere-services.com',
-        database='CristoF$Dictionary'
+        user='*',
+        password='*',
+        host='*',
+        database='*'
 )
 
 cursor = con.cursor()
