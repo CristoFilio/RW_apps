@@ -2,10 +2,10 @@ import mysql.connector
 from difflib import get_close_matches
 
 con = mysql.connector.connect(
-        user='CristoF',
-        password='MiData320##0',
-        host='CristoF.mysql.pythonanywhere-services.com',
-        database='CristoF$Dictionary'
+        user='*',
+        password='*',
+        host='*',
+        database='*'
 )
 
 cursor = con.cursor()
@@ -35,10 +35,8 @@ def dictionary():
             break
 
         if len(query_return) > 0:
-
-            if word in query_return[0][1].lower():
+          
                 print('\n{}:'.format(word.capitalize()))
-
                 for definition in query_return:
                     print('{}.- {}'.format(number, definition[0]))
                     number += 1
