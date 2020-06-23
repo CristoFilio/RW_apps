@@ -123,9 +123,9 @@ def data_input():
     print('\nWelcome to Python Map Maker.\n'
           '\nThis program can process your data sets and plot them in\n'
           'a map using markers and labels with information.\n'
-          'This program accepts multiple data sets, and it will create a layer on\n'
+          'This program accepts multiple csv data sets, and it will create a layer on\n'
           'the map for each data set. You can also toggle the layers on and off\n\n'
-          'The data set will need the following columns:\n'
+          'The csv data set will need the following columns:\n'
           'Address, City, State, or Latitude and Longitude. The column for\n'
           'the label information is optional. You will enter\n'
           'the name for this column when the layer is created.\n'
@@ -149,7 +149,7 @@ def data_input():
 def file_check():
     file_name = ''
     while len(file_name) == 0:
-        file_name = input('Please enter the file containing your data:\n')
+        file_name = input('Please enter the csv file containing your data:\n')
     if len(file_name) > 0:
         try:
             map_layers.append(MapLayer(data_frame=pd.read_csv(file_name)))
