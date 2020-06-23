@@ -2,6 +2,7 @@ import folium
 import pandas as pd
 from geopy.geocoders import ArcGIS
 import random
+import os
 
 geo_locator = ArcGIS(timeout=10)
 save_file_check = '\\', '/', '>', '<', '*', '?', '|', '"', '*', '\n'
@@ -184,6 +185,7 @@ def create_map():
     map_base.add_child(folium.LayerControl())
     map_name = save_file_name_check()
     map_base.save('{}.html'.format(map_name))
+    os.startfile('{}.html'.format(map_name))
 
 
 def map_location():
