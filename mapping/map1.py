@@ -3,6 +3,7 @@ import pandas as pd
 from geopy.geocoders import ArcGIS
 import random
 import os
+from folium.plugins.mat_icon import MatIcon
 
 geo_locator = ArcGIS(timeout=10)
 save_file_check = '\\', '/', '>', '<', '*', '?', '|', '"', '*', '\n'
@@ -21,7 +22,8 @@ lon_list = []
 class MapLayer:
 
     def __init__(self, layer='', data_frame='', lat_lon_available='',
-                 label='', icon_color='', icon='', marker_color=''):
+                 label='', icon_color='', icon='', marker_color='',
+                 marker_outline_color='', marker_outline_width=''):
 
         self.layer = layer
         self.data_frame = data_frame
@@ -30,6 +32,8 @@ class MapLayer:
         self.icon_color = icon_color
         self.icon = icon
         self.marker_color = marker_color
+        self.marker_outline_color = marker_outline_color
+        self.marker_outline_width = marker_outline_width
 
     def layer_attributes(self):
         layer_name = ''
@@ -60,10 +64,11 @@ class MapLayer:
                 self.layer.add_child(folium.Marker(
                     location=self.get_lat_lon(row),
                     popup=(self.add_label(row)),
-                    icon=folium.Icon(color=self.marker_color,
-                                     icon_color=self.icon_color,
-                                     icon=self.icon,
-                                     prefix='fa')
+                    icon=MatIcon(marker_color=self.marker_color,
+                                 marker_outline_color=self.marker_outline_color,
+                                 marker_outline_width=self.marker_outline_width,
+                                 icon_color=self.icon_color,
+                                 icon=self.icon)
                 ))
         else:
             for row in range(self.data_frame.shape[0]):
@@ -72,10 +77,11 @@ class MapLayer:
                 self.layer.add_child(folium.Marker(
                     location=[self.data_frame['latitude'][row], self.data_frame['longitude'][row]],
                     popup=(self.add_label(row)),
-                    icon=folium.Icon(color=self.marker_color,
-                                     icon_color=self.icon_color,
-                                     icon=self.icon,
-                                     prefix='fa')
+                    icon=MatIcon(marker_color=self.marker_color,
+                                 marker_outline_color=self.marker_outline_color,
+                                 marker_outline_width=self.marker_outline_width,
+                                 icon_color=self.icon_color,
+                                 icon=self.icon)
                 ))
 
     def get_lat_lon(self, row):
@@ -112,6 +118,8 @@ class MapLayer:
                   '{}'.format(", ".join(available_colors).title()))
             self.marker_color = input('Enter a color for the Marker: ').lower()
             self.icon_color = input('Enter a color for the Icon: ').lower()
+            self.marker_outline_width = input('Enter a width for the marker outline: ').lower()
+            self.marker_outline_color = input('Enter a color for the marker outline: ').lower()
             return
 
         self.marker_color = random.choice(available_colors)
